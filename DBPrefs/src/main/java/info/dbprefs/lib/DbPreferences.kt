@@ -1,10 +1,10 @@
 package info.dbprefs.lib
 
 import android.annotation.SuppressLint
-import androidx.room.Room
 import android.content.Context
 import android.provider.Settings
 import android.util.Log
+import androidx.room.Room
 import com.commonsware.cwac.saferoom.SafeHelperFactory
 import com.google.gson.Gson
 import info.dbprefs.lib.room.PreferencesDatabase
@@ -193,7 +193,7 @@ class DbPreferences {
         @JvmOverloads
         fun init(context: Context, @SuppressLint("HardwareIds") password: String = Settings.Secure.getString(context.getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID)) {
             // Room
-            val factory = SafeHelperFactory(password.toCharArray())
+            val factory = SafeHelperFactory(password.toCharArray(), SafeHelperFactory.POST_KEY_SQL_V3)
             appDatabase = Room.databaseBuilder(context, PreferencesDatabase::class.java, PreferencesDatabase.ROOM_DATABASE_NAME)
                     .openHelperFactory(factory).allowMainThreadQueries()
                     .build()
